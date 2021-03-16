@@ -13,6 +13,9 @@
             class="info-card"
           >
             <svg-icon :name="link.icon" />
+            <template #test>
+              <svg-icon :name="link.icon" />
+            </template>
           </info-card>
         </div>
         <div class="description">

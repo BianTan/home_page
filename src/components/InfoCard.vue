@@ -1,8 +1,8 @@
 <template>
   <div class="info-card">
     <a :href="url">
-      <div class="content">
-        <div class="icon" :style="`fill: #${color}`">
+      <div class="content" :style="`fill: #${color}`">
+        <div class="icon">
           <slot />
         </div>
         <p>{{ name }}</p>
@@ -43,6 +43,7 @@ export default defineComponent({
   background-color: white;
   display: inline-block;
   overflow: hidden;
+  box-shadow: 0 6px 12px -6px rgba(0, 0, 0, 0.1);
   a {
     display: flex;
     height: 100%;
@@ -59,11 +60,12 @@ export default defineComponent({
         height: 32px;
         margin: 0 auto;
         transform: translate3d(0, 8px, 0);
-        transition: 0.3s all ease-in-out;
+        transition: 0.2s all ease-in-out;
         transition-delay: 0.1s;
       }
       p {
         opacity: 0;
+        transition: 0.3s all ease-in-out;
       }
     }
     .after {
@@ -77,13 +79,14 @@ export default defineComponent({
   }
   &:hover {
     .content {
-      fill: white;
+      fill: white !important;
       .icon {
-        transform: translate3d(0, -4px, 0);
+        transform: translate3d(0, -6px, 0);
       }
       p {
         opacity: 1;
         color: white;
+        transform: translate3d(0, 6px, 0);
       }
     }
     .after {

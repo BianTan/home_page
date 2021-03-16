@@ -35,6 +35,7 @@ export default defineComponent({
 }
 .content {
   margin-left: 164px;
+  margin-bottom: 24px;
   .info {
     font-size: 24px;
     color: #fda4af;
@@ -47,6 +48,7 @@ export default defineComponent({
   &.small {
     margin-left: 0;
     margin-top: 42px;
+    margin-bottom: 0;
     .info {
       font-size: 18px;
     }
