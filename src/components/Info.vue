@@ -1,0 +1,59 @@
+<template>
+  <img src="@/assets/images/avatar.jpg" :class="['avatar', { small: small }]" />
+  <div :class="['content', { small: small }]">
+    <div class="info">前端开发工程师 / 兴趣使然的设计 / 22 岁</div>
+    <div class="name">我是笨蛋小扁担</div>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  name: "Info",
+  props: {
+    small: {
+      type: Boolean,
+      default: false,
+    },
+  },
+});
+</script>
+
+<style lang="scss" scoped>
+.avatar {
+  width: 320px;
+  height: 320px;
+  border: 16px solid rgb(252, 136, 153, 0.8);
+  border-radius: 50%;
+  box-sizing: border-box;
+  &.small {
+    width: 164px;
+    height: 164px;
+    border-width: 12px;
+  }
+}
+.content {
+  margin-left: 164px;
+  .info {
+    font-size: 24px;
+    color: #fda4af;
+  }
+  .name {
+    font-size: 72px;
+    color: #fb7185;
+    margin-top: 24px;
+  }
+  &.small {
+    margin-left: 0;
+    margin-top: 42px;
+    .info {
+      font-size: 18px;
+    }
+    .name {
+      font-size: 48px;
+      margin-top: 16px;
+    }
+  }
+}
+</style>

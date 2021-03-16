@@ -1,27 +1,52 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <app-header @handleMenuClick="handleMenuClick" />
+  <div class="wrapper">
+    <swiper ref="swiperRef">
+      <slide><home /></slide>
+      <slide><about /></slide>
+      <slide><friend /></slide>
+      <slide><project /></slide>
+    </swiper>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+import { defineComponent, ref } from "vue";
+import AppHeader from "./components/AppHeader.vue";
+import Swiper from "./common/swiper/index.vue";
+import Slide from "./common/swiper/Slide.vue";
+import Home from "./views/Home.vue";
+import About from "./views/About.vue";
+import Friend from "./views/Friend.vue";
+import Project from "./views/Project.vue";
 
 export default defineComponent({
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
+    AppHeader,
+    Swiper,
+    Slide,
+    Home,
+    About,
+    Friend,
+    Project,
+  },
+  setup() {
+    const swiperRef = ref<any>(null);
+    const handleMenuClick = (index: number) => {
+      if (swiperRef.value) swiperRef.value.goPage(index);
+    };
+
+    return {
+      swiperRef,
+      handleMenuClick,
+    };
+  },
 });
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style scoped>
+.wrapper {
+  height: 100%;
 }
 </style>
