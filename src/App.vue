@@ -34,6 +34,7 @@ export default defineComponent({
   },
   setup() {
     const swiperRef = ref<any>(null);
+    const index = ref(0);
 
     const switchPage = (url: string) => {
       const path = url.replace(/http:\/\/\S+?\//g, "");
@@ -43,11 +44,20 @@ export default defineComponent({
       return index;
     };
 
-    const index = switchPage(location.href);
-    window.addEventListener("hashchange", (e) => {
-      const index = switchPage(e.newURL);
-      if (swiperRef.value) swiperRef.value.goPage(index);
-    });
+    const bindEvent = () => {
+      window.addEventListener("hashchange", (e) => {
+        const index = switchPage(e.newURL);
+        if (swiperRef.value) swiperRef.value.goPage(index);
+      });
+    };
+
+    const init = () => {
+      index.value = switchPage(location.href);
+      if (index.value < 0) location.href = "/#home";
+      bindEvent();
+    };
+
+    init();
 
     return {
       swiperRef,
