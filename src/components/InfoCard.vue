@@ -65,7 +65,8 @@ export default defineComponent({
       }
       p {
         opacity: 0;
-        transition: 0.3s all ease-in-out;
+        transition: 0.2s all ease-in-out;
+        transition-delay: 0.1s;
       }
     }
     .after {

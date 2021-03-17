@@ -30,7 +30,16 @@
         </div>
       </div>
     </div>
-    <div class="progress-wrapper"></div>
+    <div class="progress-list">
+      <Bd-progress
+        class="progress-li"
+        v-for="item in progressList"
+        :key="item.id"
+        :title="item.title"
+        :desc="item.desc"
+        :progressWidth="item.progressWidth"
+      />
+    </div>
   </div>
 </template>
 
@@ -39,6 +48,7 @@ import { defineComponent } from "vue";
 import Info from "@/components/Info.vue";
 import InfoCard from "@/components/InfoCard.vue";
 import SvgIcon from "@/components/SvgIcon.vue";
+import BdProgress from "@/components/BdProgress.vue";
 
 export default defineComponent({
   name: "About",
@@ -46,6 +56,7 @@ export default defineComponent({
     Info,
     InfoCard,
     SvgIcon,
+    BdProgress,
   },
   setup() {
     const links = [
@@ -78,9 +89,36 @@ export default defineComponent({
         color: "FB7299",
       },
     ];
+    const progressList = [
+      {
+        id: 0,
+        title: "HTML/CSS3",
+        desc: "设计稿还原的能力(?)",
+        progressWidth: 88,
+      },
+      {
+        id: 1,
+        title: "JavaScript/TypeScript",
+        desc: "使用制造轮子的能力(?)",
+        progressWidth: 64,
+      },
+      {
+        id: 2,
+        title: "兴趣使然的设计",
+        desc: "尽量让自己觉得舒服(?)",
+        progressWidth: 32,
+      },
+      {
+        id: 3,
+        title: "学习能力",
+        desc: "自主学习的能力",
+        progressWidth: 100,
+      },
+    ];
 
     return {
       links,
+      progressList,
     };
   },
 });
@@ -111,6 +149,13 @@ export default defineComponent({
         margin-top: 8px;
       }
     }
+  }
+}
+.progress-list {
+  width: 80%;
+  margin-top: 64px;
+  .progress-li:not(:last-child) {
+    margin-bottom: 42px;
   }
 }
 </style>
