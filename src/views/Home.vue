@@ -20,7 +20,7 @@ export default defineComponent({
 .home {
   display: flex;
   align-items: flex-end;
-  justify-content: center;
+  // justify-content: center;
   margin-top: 20%;
 }
 </style>

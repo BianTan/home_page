@@ -30,7 +30,7 @@
         </div>
       </div>
     </div>
-    <div class="progress-list">
+    <div class="progress-list" ref="progressListRef">
       <Bd-progress
         class="progress-li"
         v-for="item in progressList"
@@ -44,8 +44,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
 import { aboutLinks, progressList } from "@/common/config";
+import { getPath, useProgress } from "@/common/utlis";
 import Info from "@/components/Info.vue";
 import InfoCard from "@/components/InfoCard.vue";
 import SvgIcon from "@/components/SvgIcon.vue";
@@ -60,9 +61,17 @@ export default defineComponent({
     BdProgress,
   },
   setup() {
+    const progressListRef = ref<HTMLElement | null>(null);
+
+    onMounted(() => {
+      const path = getPath();
+      if (progressListRef.value && path == "#about")
+        useProgress(progressListRef.value);
+    });
     return {
       aboutLinks,
       progressList,
+      progressListRef,
     };
   },
 });

@@ -1,13 +1,16 @@
 <template>
   <img src="@/assets/images/avatar.jpg" :class="['avatar', { small: small }]" />
-  <div :class="['content', { small: small }]">
-    <div class="info">前端开发工程师 / 兴趣使然的设计 / 22 岁</div>
+  <div :class="['content', { small: small }]" ref="contentRef">
+    <div :class="['info', { active: small }]">
+      前端开发工程师 / 兴趣使然的设计 / 22 岁
+    </div>
     <div class="name">我是笨蛋小扁担</div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
+import { getPath, useInfo } from "@/common/utlis";
 
 export default defineComponent({
   name: "Info",
@@ -16,6 +19,17 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+  },
+  setup() {
+    const contentRef = ref<HTMLElement | null>(null);
+
+    onMounted(() => {
+      const path = getPath();
+      if (contentRef.value && path == "#home") useInfo(contentRef.value);
+    });
+    return {
+      contentRef,
+    };
   },
 });
 </script>
@@ -39,11 +53,15 @@ export default defineComponent({
   .info {
     font-size: 24px;
     color: #fda4af;
+    transform: translateY(24px);
+    opacity: 0;
+    transition: 0.3s all ease-in-out;
   }
   .name {
     font-size: 72px;
     color: #fb7185;
     margin-top: 24px;
+    font-family: monospace;
   }
   &.small {
     margin-left: 0;

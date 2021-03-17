@@ -78,6 +78,12 @@ export const progressList = [
     desc: "自主学习的能力",
     progressWidth: 100,
   },
+  {
+    id: 4,
+    title: "斗气值",
+    desc: "斗之气 三段！呜呜呜",
+    progressWidth: 3,
+  },
 ];
 
 /** Friend **/

@@ -5,7 +5,7 @@
       <span class="description">{{ desc }}</span>
     </div>
     <div class="progerss">
-      <div :style="`width: ${progressWidth}%;`"></div>
+      <div :style="`--width: ${progressWidth}%;`"></div>
     </div>
   </div>
 </template>

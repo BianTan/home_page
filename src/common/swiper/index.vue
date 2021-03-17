@@ -29,13 +29,6 @@ export default defineComponent({
     onMounted(() => {
       if (swiperRef.value) {
         swiper.value = new BdSwiper(swiperRef.value, props.basePage);
-        window.addEventListener(
-          "resize",
-          () => {
-            swiper.value?.resize();
-          },
-          false
-        );
       }
     });
 

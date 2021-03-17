@@ -3,7 +3,7 @@
   <div class="wrapper">
     <swiper ref="swiperRef" :basePage="index">
       <slide><home /></slide>
-      <slide><about /></slide>
+      <slide><about ref="aboutRef" /></slide>
       <slide><friend /></slide>
       <slide><project /></slide>
     </swiper>
@@ -13,6 +13,7 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import { MenuLinks } from "@/common/config";
+import { getPath, useInfo, useProgress } from "@/common/utlis";
 import AppHeader from "./components/AppHeader.vue";
 import Swiper from "./common/swiper/index.vue";
 import Slide from "./common/swiper/Slide.vue";
@@ -34,6 +35,7 @@ export default defineComponent({
   },
   setup() {
     const swiperRef = ref<any>(null);
+    const aboutRef = ref<any>(null);
     const index = ref(0);
 
     const switchPage = (url: string) => {
@@ -44,11 +46,29 @@ export default defineComponent({
       return index;
     };
 
+    const hashChange = (e: any) => {
+      const path = getPath();
+      const index = switchPage(e.newURL);
+      const home = document.querySelector(".home");
+      if (swiperRef.value) swiperRef.value.goPage(index);
+      switch (path) {
+        case "#home":
+          if (home) useInfo(home as HTMLElement);
+          break;
+        case "#about":
+          useProgress(aboutRef.value.progressListRef);
+          break;
+        case "#friend":
+          break;
+        case "#project":
+          break;
+        case "default":
+          break;
+      }
+    };
+
     const bindEvent = () => {
-      window.addEventListener("hashchange", (e) => {
-        const index = switchPage(e.newURL);
-        if (swiperRef.value) swiperRef.value.goPage(index);
-      });
+      window.addEventListener("hashchange", hashChange, false);
     };
 
     const init = () => {
@@ -65,6 +85,7 @@ export default defineComponent({
     return {
       swiperRef,
       index,
+      aboutRef,
     };
   },
 });

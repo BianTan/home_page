@@ -2,8 +2,9 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import './assets/css/reset.css'
 import './assets/css/style.scss'
+import './assets/css/animation.scss'
 
 createApp(App).mount('#app')
-// 2. 载入所有svg icon
+// 载入所有 svg icon
 const requireContext = require.context('./assets/images/svg', false, /\.svg$/)
 requireContext.keys().forEach(requireContext)

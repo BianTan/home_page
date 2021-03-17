@@ -18,7 +18,12 @@ class BdSwiper {
     if (this.wrapperDom) {
       const w = this.wrapperDom.clientWidth;
       this.wrapperDom.style.transform = `translate3d(-${this.currentIndex * w}px, 0, 0)`;
+      this.bindEvent();
     }
+  }
+
+  bindEvent(): void {
+    window.addEventListener("resize", this.handleWindowResize.bind(this), false);
   }
 
   goPage(index: number): void {
@@ -33,7 +38,7 @@ class BdSwiper {
     }
   }
 
-  resize(): void {
+  handleWindowResize(): void {
     if (this.wrapperDom) {
       const w = this.wrapperDom.clientWidth;
       this.wrapperDom.style.transform = `translate3d(-${this.currentIndex * w}px, 0, 0)`;
