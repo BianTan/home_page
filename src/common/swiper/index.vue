@@ -12,7 +12,13 @@ import BdSwiper from "./BdSwiper";
 
 export default defineComponent({
   name: "BdSwiper",
-  setup() {
+  props: {
+    basePage: {
+      type: Number,
+      default: 0,
+    },
+  },
+  setup(props) {
     const swiperRef = ref<HTMLElement | null>(null);
     const swiper = ref<BdSwiper | null>(null);
 
@@ -22,7 +28,7 @@ export default defineComponent({
 
     onMounted(() => {
       if (swiperRef.value) {
-        swiper.value = new BdSwiper(swiperRef.value);
+        swiper.value = new BdSwiper(swiperRef.value, props.basePage);
         window.addEventListener(
           "resize",
           () => {
@@ -49,7 +55,6 @@ export default defineComponent({
     display: flex;
     transform: translate3d(0, 0, 0);
     transition: transform ease;
-    transition-duration: 0.6s;
   }
 }
 </style>

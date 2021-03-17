@@ -3,7 +3,7 @@
     <svg-icon class="header-icon" :name="icon" />
     <menu>
       <a
-        v-for="link in links"
+        v-for="link in MenuLinks"
         :key="link.id"
         :href="link.url"
         :class="[{ active: currentIndex === link.id }]"
@@ -16,6 +16,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
+import { MenuLinks } from "@/common/config";
 import SvgIcon from "./SvgIcon.vue";
 
 export default defineComponent({
@@ -23,41 +24,22 @@ export default defineComponent({
   components: {
     SvgIcon,
   },
-  emits: ["handleMenuClick"],
-  setup(props, ctx) {
-    const links = [
-      {
-        id: 0,
-        name: "Home",
-        url: "#",
-      },
-      {
-        id: 1,
-        name: "About",
-        url: "#",
-      },
-      {
-        id: 2,
-        name: "Friend",
-        url: "#",
-      },
-      {
-        id: 3,
-        name: "Project",
-        url: "#",
-      },
-    ];
-
-    const currentIndex = ref(0);
+  props: {
+    index: {
+      type: Number,
+      default: 0,
+    },
+  },
+  setup(props) {
+    const currentIndex = ref(props.index);
     const icon = ref("Home");
     const handleLinkClick = (index: number) => {
       currentIndex.value = index;
-      icon.value = links[index].name;
-      ctx.emit("handleMenuClick", index);
+      icon.value = MenuLinks[index].name;
     };
 
     return {
-      links,
+      MenuLinks,
       icon,
       currentIndex,
       handleLinkClick,

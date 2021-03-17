@@ -1,7 +1,7 @@
 <template>
-  <app-header @handleMenuClick="handleMenuClick" />
+  <app-header :index="index" />
   <div class="wrapper">
-    <swiper ref="swiperRef">
+    <swiper ref="swiperRef" :basePage="index">
       <slide><home /></slide>
       <slide><about /></slide>
       <slide><friend /></slide>
@@ -12,6 +12,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
+import { MenuLinks } from "@/common/config";
 import AppHeader from "./components/AppHeader.vue";
 import Swiper from "./common/swiper/index.vue";
 import Slide from "./common/swiper/Slide.vue";
@@ -33,13 +34,24 @@ export default defineComponent({
   },
   setup() {
     const swiperRef = ref<any>(null);
-    const handleMenuClick = (index: number) => {
-      if (swiperRef.value) swiperRef.value.goPage(index);
+
+    const switchPage = (url: string) => {
+      const path = url.replace(/http:\/\/\S+?\//g, "");
+      const index = MenuLinks.findIndex((link) => {
+        return link.url === path;
+      });
+      return index;
     };
+
+    const index = switchPage(location.href);
+    window.addEventListener("hashchange", (e) => {
+      const index = switchPage(e.newURL);
+      if (swiperRef.value) swiperRef.value.goPage(index);
+    });
 
     return {
       swiperRef,
-      handleMenuClick,
+      index,
     };
   },
 });
