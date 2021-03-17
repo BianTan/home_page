@@ -43,7 +43,7 @@ export default defineComponent({
   background-color: white;
   display: inline-block;
   overflow: hidden;
-  box-shadow: 0 6px 12px -6px rgba(0, 0, 0, 0.1);
+  transition: 0.3s all ease-in-out;
   a {
     display: flex;
     height: 100%;
@@ -79,6 +79,7 @@ export default defineComponent({
     }
   }
   &:hover {
+    box-shadow: 0 6px 12px -6px rgba(0, 0, 0, 0.1);
     .content {
       fill: white !important;
       .icon {
