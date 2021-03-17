@@ -1,6 +1,6 @@
 <template>
   <div class="info-card">
-    <a :href="url">
+    <a :href="url" target="_blank">
       <div class="content" :style="`fill: #${color}`">
         <div class="icon">
           <slot />

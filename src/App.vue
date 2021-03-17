@@ -53,7 +53,10 @@ export default defineComponent({
 
     const init = () => {
       index.value = switchPage(location.href);
-      if (index.value < 0) location.href = "/#home";
+      if (index.value < 0) {
+        location.href = "/#home";
+        index.value = 0;
+      }
       bindEvent();
     };
 
