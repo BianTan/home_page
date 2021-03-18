@@ -5,18 +5,21 @@ export const useInfo = (doc: HTMLElement): void => {
   if (!isHomeActive) {
     const name: any = doc.querySelector('.name');
     let delay = 0;
+    name.style.display = 'none';
 
-    name.innerHTML = name.textContent
-      .replace(/\S/g, "<span>$&</span>")
-      .replace(/\s/g, "<span>&nbsp;</span>");
+    setTimeout(() => {  // 等待页面切换后再执行
+      name.style.display = 'block';
+      name.innerHTML = name.textContent
+        .replace(/\S/g, "<span>$&</span>")
+        .replace(/\s/g, "<span>&nbsp;</span>");
 
-    doc.querySelectorAll('span').forEach((span, index) => {
-      delay += 0.2;
 
-      if (index === 4) delay += 0.5;
-
-      span.style.setProperty('--delay', `${delay}s`);
-    });
+      doc.querySelectorAll('span').forEach((span, index) => {
+        delay += 0.2;
+        if (index === 4) delay += 0.5;
+        span.style.setProperty('--delay', `${delay}s`);
+      });
+    }, 300);
 
     name.addEventListener('animationend', (e: any) => {
       if (e.target === doc.querySelector('.name span:last-child')) {

@@ -1,14 +1,16 @@
 <template>
   <div class="swiper-container" ref="swiperRef">
     <div class="swiper-wrapper">
-      <slot />
+      <slot name="content" />
     </div>
+    <slot />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "vue";
 import BdSwiper from "./BdSwiper";
+export let swiper: BdSwiper;
 
 export default defineComponent({
   name: "BdSwiper",
@@ -18,23 +20,25 @@ export default defineComponent({
       default: 0,
     },
   },
-  setup(props) {
+  emits: ["slideChange"],
+  setup(props, { emit }) {
     const swiperRef = ref<HTMLElement | null>(null);
-    const swiper = ref<BdSwiper | null>(null);
-
-    const goPage = (index: number) => {
-      swiper.value?.goPage(index);
-    };
 
     onMounted(() => {
       if (swiperRef.value) {
-        swiper.value = new BdSwiper(swiperRef.value, props.basePage);
+        swiper = new BdSwiper(swiperRef.value, {
+          basePage: props.basePage,
+          on: {
+            slideChange: (newIndex: number, oldIndex: number) => {
+              emit("slideChange", newIndex, oldIndex);
+            },
+          },
+        });
       }
     });
 
     return {
       swiperRef,
-      goPage,
     };
   },
 });

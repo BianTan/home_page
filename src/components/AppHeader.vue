@@ -17,8 +17,9 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import { MenuLinks } from "@/common/config";
-import { getPath } from "@/common/utlis";
+import { swiper } from "@/common/swiper/index.vue";
 import SvgIcon from "./SvgIcon.vue";
+import { emitter } from "@/App.vue";
 
 export default defineComponent({
   name: "AppHeader",
@@ -34,16 +35,21 @@ export default defineComponent({
   setup(props) {
     const currentIndex = ref(props.index);
     const icon = ref("Home");
-    const path = getPath();
-    const index = MenuLinks.findIndex((value) => {
-      return value.url == path;
-    });
-    icon.value = MenuLinks[index].name;
 
-    const handleLinkClick = (index: number) => {
+    icon.value = MenuLinks[currentIndex.value].name;
+
+    const setIndex = (index: number) => {
       currentIndex.value = index;
       icon.value = MenuLinks[index].name;
     };
+    const handleLinkClick = (index: number) => {
+      setIndex(index);
+      swiper.goPage(index);
+    };
+
+    emitter.on("currentPageIndex", (index) => {
+      setIndex(index);
+    });
 
     return {
       MenuLinks,
