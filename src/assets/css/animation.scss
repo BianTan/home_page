@@ -14,14 +14,6 @@
     animation-delay: var(--delay);
   }
 }
-@keyframes cursor {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
 @keyframes text-in {
   from {
     width: 0ch;
