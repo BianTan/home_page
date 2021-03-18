@@ -44,5 +44,5 @@ export const useProgress = (doc: HTMLElement): void => {
 }
 
 export const getPath = (): string => {
-  return location.href.replace(/http:\/\/\S+?\//g, "");
+  return location.href.replace(/http[s]{0,1}:\/\/\S+?\//g, "");
 }

@@ -39,7 +39,7 @@ export default defineComponent({
     const index = ref(0);
 
     const switchPage = (url: string) => {
-      const path = url.replace(/http:\/\/\S+?\//g, "");
+      const path = url.replace(/http[s]{0,1}:\/\/\S+?\//g, "");
       const index = MenuLinks.findIndex((link) => {
         return link.url === path;
       });

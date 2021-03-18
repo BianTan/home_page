@@ -1,3 +1,6 @@
+* {
+  user-select: none;
+}
 html,
 body,
 div,
@@ -103,6 +106,8 @@ section {
 body {
   line-height: 1;
   background-color: #fff9fa;
+  font-family: -apple-system, system-ui, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, BlinkMacSystemFont,
+    "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial;
 }
 html,
 body,
