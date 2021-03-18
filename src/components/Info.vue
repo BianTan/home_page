@@ -64,9 +64,9 @@ export default defineComponent({
       color: #fb7185;
       margin-top: 24px;
       font-family: monospace;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      background: #fff9fa;
+      position: relative;
+      z-index: 2;
     }
     &.small {
       margin-left: 0;

@@ -17,6 +17,7 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import { MenuLinks } from "@/common/config";
+import { getPath } from "@/common/utlis";
 import SvgIcon from "./SvgIcon.vue";
 
 export default defineComponent({
@@ -33,6 +34,12 @@ export default defineComponent({
   setup(props) {
     const currentIndex = ref(props.index);
     const icon = ref("Home");
+    const path = getPath();
+    const index = MenuLinks.findIndex((value) => {
+      return value.url == path;
+    });
+    icon.value = MenuLinks[index].name;
+
     const handleLinkClick = (index: number) => {
       currentIndex.value = index;
       icon.value = MenuLinks[index].name;
