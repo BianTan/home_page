@@ -24,7 +24,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .link-wrapper {
   width: 100%;
   transition: 0.3s all ease-in-out;

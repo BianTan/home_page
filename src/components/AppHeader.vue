@@ -48,7 +48,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .header {
   width: 100%;
   height: 72px;
@@ -69,9 +69,11 @@ export default defineComponent({
     a {
       color: #fda4af;
       position: relative;
-      margin-right: 16px;
-      padding-right: 16px;
       transition: color 0.3s ease-in-out;
+      &:not(:last-child) {
+        margin-right: 16px;
+        padding-right: 16px;
+      }
       &.active,
       &:hover {
         color: #f43f5e;

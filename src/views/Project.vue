@@ -14,6 +14,3 @@ export default defineComponent({
   name: "Project",
 });
 </script>
-
-<style lang="scss" scoped>
-</style>

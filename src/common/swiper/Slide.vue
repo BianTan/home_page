@@ -16,5 +16,6 @@ export default defineComponent({});
   height: 100%;
   flex-shrink: 0;
   overflow: hidden;
+  overflow-y: auto;
 }
 </style>

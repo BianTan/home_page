@@ -32,7 +32,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .friend {
   .content {
     margin-top: 56px;

@@ -77,38 +77,40 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
-.info-warpper {
-  display: flex;
-  align-items: flex-end;
-  .info-left {
+<style lang="scss">
+.about {
+  .info-warpper {
     display: flex;
-    flex-direction: column;
-  }
-  .info-right {
-    flex: 1;
-    margin-left: 180px;
-    .card-list {
-      margin-bottom: 28px;
-      .info-card:not(:last-child) {
-        margin-right: 24px;
+    align-items: flex-end;
+    .info-left {
+      display: flex;
+      flex-direction: column;
+    }
+    .info-right {
+      flex: 1;
+      margin-left: 180px;
+      .card-list {
+        margin-bottom: 28px;
+        .info-card:not(:last-child) {
+          margin-right: 24px;
+        }
+      }
+      .description {
+        font-size: 18px;
+        color: #fb7185;
+        line-height: 28px;
+        p:last-child {
+          margin-top: 8px;
+        }
       }
     }
-    .description {
-      font-size: 18px;
-      color: #fb7185;
-      line-height: 28px;
-      p:last-child {
-        margin-top: 8px;
-      }
-    }
   }
-}
-.progress-list {
-  width: 88%;
-  margin-top: 64px;
-  .progress-li:not(:last-child) {
-    margin-bottom: 42px;
+  .progress-list {
+    width: 88%;
+    margin-top: 64px;
+    .progress-li:not(:last-child) {
+      margin-bottom: 42px;
+    }
   }
 }
 </style>
