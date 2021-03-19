@@ -4,7 +4,6 @@ class BdSwiper {
   wrapperDom: HTMLElement | null;
   swiperNum: number;
   currentIndex: number;
-  isInit: boolean;
   options: SwiperOptions;
 
   constructor(el: HTMLElement, options: SwiperOptions) {
@@ -14,7 +13,6 @@ class BdSwiper {
     this.containerDom = el;
     this.wrapperDom = this.containerDom.querySelector('.swiper-wrapper');
     this.swiperNum = this.containerDom.querySelectorAll('.swiper-slide').length;
-    this.isInit = false // swiper 是否第一次加载
 
     this.init();  // 初始化
   }
@@ -43,14 +41,12 @@ class BdSwiper {
 
   /**
    * 指定页面，设置页面到到第N页
+   * @param index 需要转跳页面的 index
   */
   goPage(index: number): void {
     if (this.wrapperDom) {
+      this.wrapperDom.style.transitionDuration = '.6s'
       const currentIndex = this.currentIndex
-      if (!this.isInit) {
-        this.isInit = true
-        this.wrapperDom.style.transitionDuration = '.6s'
-      }
       this.currentIndex = index;
       const w = this.wrapperDom.clientWidth;
       this.wrapperDom.style.transform = `translate3d(-${index * w}px, 0, 0)`;
@@ -58,6 +54,9 @@ class BdSwiper {
       if (on && on.slideChange) {
         on.slideChange.call(this, index, currentIndex);
       }
+      setTimeout(() => {
+        if (this.wrapperDom) this.wrapperDom.style.transitionDuration = '0s'
+      }, 600)
     }
   }
 

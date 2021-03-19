@@ -8,7 +8,7 @@
         <slide><friend /></slide>
         <slide><project /></slide>
       </template>
-      <navigation :currentIndex="index" color="f43f5e" :margin="48" />
+      <navigation :currentIndex="index" color="f43f5e" />
     </swiper>
   </div>
 </template>

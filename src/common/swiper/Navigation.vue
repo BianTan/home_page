@@ -5,7 +5,6 @@
         v-show="currentIndex > 0"
         class="swiper-prev"
         @click="handlePrevClick"
-        :style="[{ left: `${margin}px` }]"
       >
         <svg-icon name="left" />
       </div>
@@ -15,7 +14,6 @@
         v-show="currentIndex < swiperNum - 1"
         class="swiper-next"
         @click="handleNextClick"
-        :style="[{ right: `${margin}px` }]"
       >
         <svg-icon name="right" />
       </div>
@@ -38,10 +36,6 @@ export default defineComponent({
       type: String,
       default: "2e3a59",
     },
-    margin: {
-      type: Number,
-      default: 24,
-    },
     currentIndex: {
       type: Number,
       required: true,
@@ -59,9 +53,6 @@ export default defineComponent({
     onMounted(async () => {
       await nextTick();
       swiperNum.value = swiper.swiperNum;
-      // setTimeout(() => {
-      //   swiperNum.value = swiper.swiperNum;
-      // }, 0);
     });
 
     return {
@@ -84,11 +75,39 @@ export default defineComponent({
     cursor: pointer;
   }
   .swiper-prev {
+    left: 48px;
     animation: left-bounce 1.75s infinite;
   }
   .swiper-next {
+    right: 48px;
     animation: right-bounce 1.75s infinite;
   }
+}
+@media (max-width: 640px) {
+  .swiper-navigation {
+    .swiper-prev,
+    .swiper-next {
+      top: auto;
+      bottom: 72px;
+    }
+    .swiper-prev {
+      left: 24px;
+    }
+    .swiper-next {
+      right: 24px;
+    }
+  }
+}
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
 }
 @keyframes left-bounce {
   0% {
@@ -153,18 +172,5 @@ export default defineComponent({
   100% {
     transform: translateX(0);
   }
-}
-.slide-fade-enter-active {
-  transition: all 0.3s ease-out;
-}
-
-.slide-fade-leave-active {
-  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
-}
-
-.slide-fade-enter-from,
-.slide-fade-leave-to {
-  transform: translateX(20px);
-  opacity: 0;
 }
 </style>
