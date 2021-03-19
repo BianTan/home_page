@@ -1,7 +1,7 @@
 <template>
   <app-header :index="index" />
-  <div class="wrapper">
-    <swiper ref="swiperRef" :basePage="index" @slideChange="slideChange">
+  <div class="wrapper" v-cloak>
+    <swiper :basePage="index" @slideChange="slideChange">
       <template #content>
         <slide><home /></slide>
         <slide><about ref="aboutRef" /></slide>
@@ -14,10 +14,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
-import mitt from "mitt";
+import { defineComponent, reactive, toRefs } from "vue";
 import { MenuLinks } from "@/common/config";
-import { useInfo, useProgress } from "@/common/utlis";
+import { useInfo, useProgress, getPageIndex } from "@/common/utlis";
+import mitt from "mitt";
 import AppHeader from "./components/AppHeader.vue";
 import Swiper from "./common/swiper/index.vue";
 import Slide from "./common/swiper/Slide.vue";
@@ -28,6 +28,10 @@ import Project from "./views/Project.vue";
 import Navigation from "./common/swiper/Navigation.vue";
 
 export const emitter = mitt();
+interface StateRef {
+  aboutRef: any;
+  index: number;
+}
 
 export default defineComponent({
   name: "App",
@@ -42,59 +46,56 @@ export default defineComponent({
     Navigation,
   },
   setup() {
-    const swiperRef = ref<any>(null);
-    const aboutRef = ref<any>(null);
-    const index = ref(0);
-
-    const getPageIndex = (url: string) => {
-      const path = url.replace(/http[s]{0,1}:\/\/\S+?\//g, "");
-      const index = MenuLinks.findIndex((link) => {
-        return link.url === path;
-      });
-      return index;
-    };
-
-    const slideChange = (newIndex: number) => {
-      const home = document.querySelector(".home");
-      const path = MenuLinks.find((item) => {
-        return item.id === newIndex;
-      });
-      if (path) {
-        index.value = path.id;
-        location.href = path.url;
-        emitter.emit("currentPageIndex", index.value);
-      }
-      switch (path?.url) {
-        case "#home":
-          if (home) useInfo(home as HTMLElement);
-          break;
-        case "#about":
-          useProgress(aboutRef.value.progressListRef);
-          break;
-        case "#friend":
-          break;
-        case "#project":
-          break;
-        case "default":
-          break;
-      }
-    };
+    const state: StateRef = reactive({
+      aboutRef: null,
+      index: 0,
+    });
+    const mutations = reactive({
+      /**
+       * 当 swiperSlide 变化时触发
+       * @param newIndex swiper 切换后的页面 index
+       * @param oldIndex swiper 切换前的页面 index
+       */
+      slideChange: (newIndex: number) => {
+        const home = document.querySelector(".home");
+        const path = MenuLinks.find((item) => {
+          return item.id === newIndex;
+        });
+        if (path) {
+          state.index = path.id;
+          location.href = path.url;
+          emitter.emit("currentPageIndex", state.index);
+        }
+        switch (path?.url) {
+          case "#home":
+            if (home) useInfo(home as HTMLElement);
+            break;
+          case "#about":
+            useProgress(state.aboutRef.progressListRef);
+            break;
+          case "#friend":
+            break;
+          case "#project":
+            break;
+          case "default":
+            break;
+        }
+      },
+    });
 
     const init = () => {
-      index.value = getPageIndex(location.href);
-      if (index.value < 0) {
+      state.index = getPageIndex(location.href);
+      if (state.index < 0) {
         location.href = "/#home";
-        index.value = 0;
+        state.index = 0;
       }
     };
 
     init();
 
     return {
-      swiperRef,
-      index,
-      aboutRef,
-      slideChange,
+      ...toRefs(state),
+      ...toRefs(mutations),
     };
   },
 });

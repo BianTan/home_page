@@ -82,7 +82,7 @@ export const progressList = [
     id: 4,
     title: "斗气值",
     desc: "斗之气 三段！呜呜呜",
-    progressWidth: 3,
+    progressWidth: 10,
   },
 ];
 

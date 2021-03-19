@@ -1,6 +1,12 @@
+import { MenuLinks } from './config'
+
 let isHomeActive = false;
 let isAboutActive = false;
 
+/**
+ * 应用 info 的动画特效
+ * @param doc 包裹 info 的 HTMLElement
+*/
 export const useInfo = (doc: HTMLElement): void => {
   if (!isHomeActive) {
     const name: any = doc.querySelector('.name');
@@ -31,6 +37,10 @@ export const useInfo = (doc: HTMLElement): void => {
   }
 }
 
+/**
+ * 应用进度条动画特效
+ * @param doc 包裹进度条的 HTMLElement
+*/
 export const useProgress = (doc: HTMLElement): void => {
   if (!isAboutActive) {
     const progressList: any = doc.querySelectorAll('.progress-li');
@@ -46,6 +56,21 @@ export const useProgress = (doc: HTMLElement): void => {
   }
 }
 
+/**
+ * 获取当前 url 的 path
+*/
 export const getPath = (): string => {
   return location.href.replace(/http[s]{0,1}:\/\/\S+?\//g, "");
 }
+
+/**
+ * 根据 url 获取页面 index
+ * @param url 需要解析的 url 地址
+*/
+export const getPageIndex = (url: string): number => {
+  const path = url.replace(/http[s]{0,1}:\/\/\S+?\//g, "");
+  const index = MenuLinks.findIndex((link) => {
+    return link.url === path;
+  });
+  return index;
+};

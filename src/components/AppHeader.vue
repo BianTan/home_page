@@ -17,9 +17,10 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import { MenuLinks } from "@/common/config";
+import { getPageIndex } from "@/common/utlis";
 import { swiper } from "@/common/swiper/index.vue";
-import SvgIcon from "./SvgIcon.vue";
 import { emitter } from "@/App.vue";
+import SvgIcon from "./SvgIcon.vue";
 
 export default defineComponent({
   name: "AppHeader",
@@ -42,11 +43,12 @@ export default defineComponent({
       currentIndex.value = index;
       icon.value = MenuLinks[index].name;
     };
-    const handleLinkClick = (index: number) => {
-      setIndex(index);
-      swiper.goPage(index);
-    };
+    const handleLinkClick = (index: number) => setIndex(index);
 
+    window.addEventListener("hashchange", (e: any) => {
+      const index = getPageIndex(e.newURL);
+      swiper.goPage(index);
+    });
     emitter.on("currentPageIndex", (index) => {
       setIndex(index);
     });

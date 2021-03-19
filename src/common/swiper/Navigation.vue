@@ -73,6 +73,9 @@ export default defineComponent({
     position: absolute;
     top: 50%;
     cursor: pointer;
+    &:hover {
+      animation-play-state: paused;
+    }
   }
   .swiper-prev {
     left: 48px;
