@@ -2,14 +2,16 @@ import { SwiperOptions } from './typing'
 class BdSwiper {
   containerDom: HTMLElement | null;
   wrapperDom: HTMLElement | null;
+  switchDelay: number;
   swiperNum: number;
   currentIndex: number;
   options: SwiperOptions;
 
   constructor(el: HTMLElement, options: SwiperOptions) {
-    const { basePage } = options
+    const { basePage = 0, switchDelay = 600 } = options
+    this.switchDelay = switchDelay
     this.options = options
-    this.currentIndex = basePage || 0;
+    this.currentIndex = basePage;
     this.containerDom = el;
     this.wrapperDom = this.containerDom.querySelector('.swiper-wrapper');
     this.swiperNum = this.containerDom.querySelectorAll('.swiper-slide').length;
@@ -45,7 +47,10 @@ class BdSwiper {
   */
   goPage(index: number): void {
     if (this.wrapperDom) {
-      this.wrapperDom.style.transitionDuration = '.6s'
+      setTimeout(() => {
+        if (this.wrapperDom) this.wrapperDom.style.transitionDuration = '0s'
+      }, this.switchDelay)
+      this.wrapperDom.style.transitionDuration = `${this.switchDelay}ms`
       const currentIndex = this.currentIndex
       this.currentIndex = index;
       const w = this.wrapperDom.clientWidth;
@@ -54,9 +59,6 @@ class BdSwiper {
       if (on && on.slideChange) {
         on.slideChange.call(this, index, currentIndex);
       }
-      setTimeout(() => {
-        if (this.wrapperDom) this.wrapperDom.style.transitionDuration = '0s'
-      }, 600)
     }
   }
 
