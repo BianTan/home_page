@@ -11,25 +11,25 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: "BdProgress",
+  name: 'BdProgress',
   props: {
     title: {
       type: String,
-      default: "默认标题",
+      default: '默认标题'
     },
     desc: {
       type: String,
-      default: "",
+      default: ''
     },
     progressWidth: {
       type: Number,
-      default: 100,
-    },
-  },
-});
+      default: 100
+    }
+  }
+})
 </script>
 
 <style lang="scss" scoped>

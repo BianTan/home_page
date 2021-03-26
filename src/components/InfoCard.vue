@@ -13,25 +13,25 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: "InfoCard",
+  name: 'InfoCard',
   props: {
     name: {
       type: String,
-      default: "Hello",
+      default: 'Hello'
     },
     url: {
       type: String,
-      default: "#",
+      default: '#'
     },
     color: {
       type: String,
-      default: "#333",
-    },
-  },
-});
+      default: '#333'
+    }
+  }
+})
 </script>
 
 <style lang="scss">

@@ -14,27 +14,27 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from "vue";
-import { MenuLinks } from "@/common/config";
-import { useInfo, useProgress, getPageIndex } from "@/common/utlis";
-import mitt from "mitt";
-import AppHeader from "./components/AppHeader.vue";
-import Swiper from "./common/swiper/index.vue";
-import Slide from "./common/swiper/Slide.vue";
-import Home from "./views/Home.vue";
-import About from "./views/About.vue";
-import Friend from "./views/Friend.vue";
-import Project from "./views/Project.vue";
-import Navigation from "./common/swiper/Navigation.vue";
+import { defineComponent, reactive, toRefs } from 'vue'
+import { MenuLinks } from '@/common/config'
+import { useInfo, useProgress, getPageIndex } from '@/common/utlis'
+import mitt from 'mitt'
+import AppHeader from './components/AppHeader.vue'
+import Swiper from './common/swiper/index.vue'
+import Slide from './common/swiper/Slide.vue'
+import Home from './views/Home.vue'
+import About from './views/About.vue'
+import Friend from './views/Friend.vue'
+import Project from './views/Project.vue'
+import Navigation from './common/swiper/Navigation.vue'
 
-export const emitter = mitt();
+export const emitter = mitt()
 interface StateRef {
-  aboutRef: any;
-  index: number;
+  aboutRef: any
+  index: number
 }
 
 export default defineComponent({
-  name: "App",
+  name: 'App',
   components: {
     AppHeader,
     Swiper,
@@ -43,13 +43,13 @@ export default defineComponent({
     About,
     Friend,
     Project,
-    Navigation,
+    Navigation
   },
   setup() {
     const state: StateRef = reactive({
       aboutRef: null,
-      index: 0,
-    });
+      index: 0
+    })
     const mutations = reactive({
       /**
        * 当 swiperSlide 变化时触发
@@ -57,48 +57,48 @@ export default defineComponent({
        * @param oldIndex swiper 切换前的页面 index
        */
       slideChange: (newIndex: number) => {
-        const home = document.querySelector(".home");
-        const path = MenuLinks.find((item) => {
-          return item.id === newIndex;
-        });
+        const home = document.querySelector('.home')
+        const path = MenuLinks.find(item => {
+          return item.id === newIndex
+        })
         if (path) {
-          state.index = path.id;
-          location.href = path.url;
-          emitter.emit("currentPageIndex", state.index);
+          state.index = path.id
+          location.href = path.url
+          emitter.emit('currentPageIndex', state.index)
         }
         switch (path?.url) {
-          case "#home":
-            if (home) useInfo(home as HTMLElement);
-            break;
-          case "#about":
-            useProgress(state.aboutRef.progressListRef);
-            break;
-          case "#friend":
-            break;
-          case "#project":
-            break;
-          case "default":
-            break;
+          case '#home':
+            if (home) useInfo(home as HTMLElement)
+            break
+          case '#about':
+            useProgress(state.aboutRef.progressListRef)
+            break
+          case '#friend':
+            break
+          case '#project':
+            break
+          case 'default':
+            break
         }
-      },
-    });
+      }
+    })
 
     const init = () => {
-      state.index = getPageIndex(location.href);
+      state.index = getPageIndex(location.href)
       if (state.index < 0) {
-        location.href = "/#home";
-        state.index = 0;
+        location.href = '/#home'
+        state.index = 0
       }
-    };
+    }
 
-    init();
+    init()
 
     return {
       ...toRefs(state),
-      ...toRefs(mutations),
-    };
-  },
-});
+      ...toRefs(mutations)
+    }
+  }
+})
 </script>
 
 <style scoped>

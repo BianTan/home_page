@@ -22,46 +22,55 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, nextTick, onMounted, ref } from "vue";
-import { swiper } from "./index.vue";
-import SvgIcon from "@/components/SvgIcon.vue";
+import {
+  defineComponent,
+  nextTick,
+  onMounted,
+  ref,
+  getCurrentInstance
+} from 'vue'
+import { swiper } from './index.vue'
+import SvgIcon from '@/components/SvgIcon.vue'
 
 export default defineComponent({
-  name: "Navigation",
+  name: 'Navigation',
   components: {
-    SvgIcon,
+    SvgIcon
   },
   props: {
     color: {
       type: String,
-      default: "2e3a59",
+      default: '2e3a59'
     },
     currentIndex: {
       type: Number,
-      required: true,
-    },
+      required: true
+    }
   },
   setup() {
-    const swiperNum = ref(-1);
+    const instance = getCurrentInstance()
+    console.log(instance)
+
+    const swiperNum = ref(-1)
     const handlePrevClick = () => {
-      swiper.prev();
-    };
+      swiper.prev()
+    }
     const handleNextClick = () => {
-      swiper.next();
-    };
+      swiper.next()
+    }
 
     onMounted(async () => {
-      await nextTick();
-      swiperNum.value = swiper.swiperNum;
-    });
+      await nextTick()
+      swiperNum.value = swiper.swiperNum
+    })
 
     return {
       handlePrevClick,
       handleNextClick,
-      swiperNum,
-    };
-  },
-});
+      swiperNum
+    }
+  }
+})
 </script>
 
 <style lang="scss">

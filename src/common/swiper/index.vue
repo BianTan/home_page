@@ -23,10 +23,11 @@ export default defineComponent({
   emits: ["slideChange"],
   setup(props, { emit }) {
     const swiperRef = ref<HTMLElement | null>(null);
+    const swiper = ref<any>(null)
 
     onMounted(() => {
       if (swiperRef.value) {
-        swiper = new BdSwiper(swiperRef.value, {
+        swiper.value = new BdSwiper(swiperRef.value, {
           basePage: props.basePage,
           on: {
             slideChange: (newIndex: number, oldIndex: number) => {
@@ -39,6 +40,7 @@ export default defineComponent({
 
     return {
       swiperRef,
+      swiper
     };
   },
 });

@@ -6,14 +6,14 @@
 
 <script>
 export default {
-  name: "SvgIcon",
+  name: 'SvgIcon',
   props: {
     name: {
       type: String,
-      required: true,
-    },
-  },
-};
+      required: true
+    }
+  }
+}
 </script>
 
 <style scoped>

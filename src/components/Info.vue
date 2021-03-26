@@ -9,29 +9,29 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from "vue";
-import { getPath, useInfo } from "@/common/utlis";
+import { defineComponent, onMounted, ref } from 'vue'
+import { getPath, useInfo } from '@/common/utlis'
 
 export default defineComponent({
-  name: "Info",
+  name: 'Info',
   props: {
     small: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   setup() {
-    const contentRef = ref<HTMLElement | null>(null);
+    const contentRef = ref<HTMLElement | null>(null)
 
     onMounted(() => {
-      const path = getPath();
-      if (contentRef.value && path == "#home") useInfo(contentRef.value);
-    });
+      const path = getPath()
+      if (contentRef.value && path == '#home') useInfo(contentRef.value)
+    })
     return {
-      contentRef,
-    };
-  },
-});
+      contentRef
+    }
+  }
+})
 </script>
 
 <style lang="scss">

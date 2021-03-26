@@ -15,52 +15,52 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
-import { MenuLinks } from "@/common/config";
-import { getPageIndex } from "@/common/utlis";
-import { swiper } from "@/common/swiper/index.vue";
-import { emitter } from "@/App.vue";
-import SvgIcon from "./SvgIcon.vue";
+import { defineComponent, ref } from 'vue'
+import { MenuLinks } from '@/common/config'
+import { getPageIndex } from '@/common/utlis'
+import { swiper } from '@/common/swiper/index.vue'
+import { emitter } from '@/App.vue'
+import SvgIcon from './SvgIcon.vue'
 
 export default defineComponent({
-  name: "AppHeader",
+  name: 'AppHeader',
   components: {
-    SvgIcon,
+    SvgIcon
   },
   props: {
     index: {
       type: Number,
-      default: 0,
-    },
+      default: 0
+    }
   },
   setup(props) {
-    const currentIndex = ref(props.index);
-    const icon = ref("Home");
+    const currentIndex = ref(props.index)
+    const icon = ref('Home')
 
-    icon.value = MenuLinks[currentIndex.value].name;
+    icon.value = MenuLinks[currentIndex.value].name
 
     const setIndex = (index: number) => {
-      currentIndex.value = index;
-      icon.value = MenuLinks[index].name;
-    };
-    const handleLinkClick = (index: number) => setIndex(index);
+      currentIndex.value = index
+      icon.value = MenuLinks[index].name
+    }
+    const handleLinkClick = (index: number) => setIndex(index)
 
-    window.addEventListener("hashchange", (e: any) => {
-      const index = getPageIndex(e.newURL);
-      swiper.goPage(index);
-    });
-    emitter.on("currentPageIndex", (index) => {
-      setIndex(index);
-    });
+    window.addEventListener('hashchange', (e: any) => {
+      const index = getPageIndex(e.newURL)
+      swiper.goPage(index)
+    })
+    emitter.on('currentPageIndex', index => {
+      setIndex(index)
+    })
 
     return {
       MenuLinks,
       icon,
       currentIndex,
-      handleLinkClick,
-    };
-  },
-});
+      handleLinkClick
+    }
+  }
+})
 </script>
 
 <style lang="scss">
@@ -94,7 +94,7 @@ export default defineComponent({
         color: #f43f5e;
       }
       &:not(:last-child)::after {
-        content: "";
+        content: '';
         position: absolute;
         right: 0;
         top: 50%;
