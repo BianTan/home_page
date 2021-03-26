@@ -8,42 +8,41 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from "vue";
-import BdSwiper from "./BdSwiper";
-export let swiper: BdSwiper;
+import { defineComponent, onMounted, ref } from 'vue'
+import BdSwiper from './BdSwiper'
+export let swiper: BdSwiper
 
 export default defineComponent({
-  name: "BdSwiper",
+  name: 'BdSwiper',
   props: {
     basePage: {
       type: Number,
-      default: 0,
-    },
+      default: 0
+    }
   },
-  emits: ["slideChange"],
+  emits: ['slideChange'],
   setup(props, { emit }) {
-    const swiperRef = ref<HTMLElement | null>(null);
-    const swiper = ref<any>(null)
+    const swiperRef = ref<HTMLElement | null>(null)
 
     onMounted(() => {
       if (swiperRef.value) {
-        swiper.value = new BdSwiper(swiperRef.value, {
+        swiper = new BdSwiper(swiperRef.value, {
           basePage: props.basePage,
           on: {
             slideChange: (newIndex: number, oldIndex: number) => {
-              emit("slideChange", newIndex, oldIndex);
-            },
-          },
-        });
+              emit('slideChange', newIndex, oldIndex)
+            }
+          }
+        })
       }
-    });
+    })
 
     return {
       swiperRef,
       swiper
-    };
-  },
-});
+    }
+  }
+})
 </script>
 
 <style lang="scss">

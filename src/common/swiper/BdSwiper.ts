@@ -1,28 +1,30 @@
 import { SwiperOptions } from './typing'
 class BdSwiper {
-  containerDom: HTMLElement | null;
-  wrapperDom: HTMLElement | null;
+  containerElement: HTMLElement | null;
+  wrapperElement: HTMLElement | null;
   switchDelay: number;
   swiperNum: number;
   currentIndex: number;
   options: SwiperOptions;
+  wrapperWidth: number;
 
   constructor(el: HTMLElement, options: SwiperOptions) {
     const { basePage = 0, switchDelay = 600 } = options
     this.switchDelay = switchDelay
     this.options = options
     this.currentIndex = basePage;
-    this.containerDom = el;
-    this.wrapperDom = this.containerDom.querySelector('.swiper-wrapper');
-    this.swiperNum = this.containerDom.querySelectorAll('.swiper-slide').length;
+    this.containerElement = el;
+    this.wrapperElement = this.containerElement.querySelector('.swiper-wrapper');
+    this.swiperNum = this.containerElement.querySelectorAll('.swiper-slide').length;
+    this.wrapperWidth = 0
 
     this.init();  // 初始化
   }
 
   init(): void {  // 初始化
-    if (this.wrapperDom) {
-      const w = this.wrapperDom.clientWidth;
-      this.wrapperDom.style.transform = `translate3d(-${this.currentIndex * w}px, 0, 0)`;
+    if (this.wrapperElement) {
+      this.wrapperWidth = this.wrapperElement.clientWidth;
+      this.wrapperElement.style.transform = `translate3d(-${this.currentIndex * this.wrapperWidth}px, 0, 0)`;
       this.bindEvent();
     }
   }
@@ -35,29 +37,30 @@ class BdSwiper {
    * 窗口大小调整
   */
   handleWindowResize(): void {
-    if (this.wrapperDom) {
-      const w = this.wrapperDom.clientWidth;
-      this.wrapperDom.style.transform = `translate3d(-${this.currentIndex * w}px, 0, 0)`;
+    if (this.wrapperElement) {
+      this.wrapperWidth = this.wrapperElement.clientWidth;
+      this.wrapperElement.style.transform = `translate3d(-${this.currentIndex * this.wrapperWidth}px, 0, 0)`; // 重新计算
     }
   }
 
   /**
    * 指定页面，设置页面到到第N页
-   * @param index 需要转跳页面的 index
+   * @param index 需要转跳页面的index
   */
   goPage(index: number): void {
-    if (this.wrapperDom) {
-      setTimeout(() => {
-        if (this.wrapperDom) this.wrapperDom.style.transitionDuration = '0s'
+    if (this.wrapperElement) {
+
+      setTimeout(() => {  // 延时设置 transitionDuration 为0
+        if (this.wrapperElement) this.wrapperElement.style.transitionDuration = '0s'
       }, this.switchDelay)
-      this.wrapperDom.style.transitionDuration = `${this.switchDelay}ms`
-      const currentIndex = this.currentIndex
-      this.currentIndex = index;
-      const w = this.wrapperDom.clientWidth;
-      this.wrapperDom.style.transform = `translate3d(-${index * w}px, 0, 0)`;
+
+      const oldIndex = this.currentIndex  // 保存旧index
+      this.currentIndex = index;  // 设置新index
+      this.wrapperElement.style.transitionDuration = `${this.switchDelay}ms`  // 设置动画时长
+      this.wrapperElement.style.transform = `translate3d(-${index * this.wrapperWidth}px, 0, 0)`; 
       const { on } = this.options
-      if (on && on.slideChange) {
-        on.slideChange.call(this, index, currentIndex);
+      if (on && on.slideChange) { // 回调
+        on.slideChange.call(this, index, oldIndex);
       }
     }
   }

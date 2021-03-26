@@ -22,13 +22,7 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  nextTick,
-  onMounted,
-  ref,
-  getCurrentInstance
-} from 'vue'
+import { defineComponent, nextTick, onMounted, ref } from 'vue'
 import { swiper } from './index.vue'
 import SvgIcon from '@/components/SvgIcon.vue'
 
@@ -48,9 +42,6 @@ export default defineComponent({
     }
   },
   setup() {
-    const instance = getCurrentInstance()
-    console.log(instance)
-
     const swiperNum = ref(-1)
     const handlePrevClick = () => {
       swiper.prev()
