@@ -6,21 +6,15 @@
 </template>
 
 <script lang='ts' setup>
-import { onMounted } from 'vue';
+import { nextTick, onMounted } from 'vue'
 
 let timer: number | null = null
 
-const init = () => {
-
-  window.defineLive2D({
-    resourcesPath: './Resources/'
-  })
-
-  if (window.LAppDelegate.getInstance().initialize() == false) {
-    return;
-  }
+const live2dInit = () => {
+  if (window.LAppDelegate.getInstance().initialize() == false) return
   window.LAppDelegate.getInstance().run()
 
+  // 鼠标移出窗口
   document.body.addEventListener('mouseleave', () => {
     timer && clearTimeout(timer)
     timer = setTimeout(() => {
@@ -30,13 +24,16 @@ const init = () => {
       window.dispatchEvent(up)
     }, 1200)
   })
+  // 鼠标移入窗口
   document.body.addEventListener('mouseenter', () => {
     timer && clearTimeout(timer)
   })
 }
 
-onMounted(() => {
-  init()
+// 等待挂载完成进行 live2d 的初始化
+onMounted(async () => {
+  await nextTick()
+  live2dInit()
 })
 
 </script>

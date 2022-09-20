@@ -1,4 +1,5 @@
 <template>
+  <div class="header"></div>
   <div class="page-container">
     <Home class="page" />
     <Friends class="page" />
@@ -13,7 +14,6 @@
 .page-container {
   height: 100%;
   display: flex;
-  overflow: hidden;
   .page {
     width: 100%;
     flex-shrink: 0;
