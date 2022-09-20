@@ -17,6 +17,7 @@ export const menuList = [
 export interface SocialMediaItem {
   icon: string;
   name: string;
+  url: string;
 }
 import biliIcon from './images/bilibili.png'
 import githubIcon from './images/github.png'
@@ -25,19 +26,23 @@ import steamIcon from './images/steam.png'
 export const socialMediaList: SocialMediaItem[] = [
   {
     name: 'bili',
-    icon: biliIcon
+    icon: biliIcon,
+    url: 'https://space.bilibili.com/3572779'
   },
   {
     name: 'github',
-    icon: githubIcon
+    icon: githubIcon,
+    url: 'https://github.com/BianTan'
   },
   {
     name: 'uicn',
-    icon: uicnIcon
+    icon: uicnIcon,
+    url: 'https://i.ui.cn/ucenter/140038'
   },
   {
     name: 'steam',
-    icon: steamIcon
+    icon: steamIcon,
+    url: 'https://steamcommunity.com/id/BianDanW/'
   }
 ]
 
