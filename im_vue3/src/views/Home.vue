@@ -1,7 +1,9 @@
 <template>
   <div class="home">
-    <!-- live2d 头像 -->
-    <div id="live2d_canvas" />
+    <div class="g-container">
+      <!-- live2d 头像 -->
+      <div id="live2d_canvas" />
+    </div>
   </div>
 </template>
 
@@ -43,10 +45,6 @@ onMounted(async () => {
   #live2d_canvas {
     width: 200px;
     height: 200px;
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
     background: #FFF1F3;
     box-shadow: 0px 1px 3px 0px rgb(226 102 120 / 20%), inset 0px 1px 3px 0px rgb(253 198 206 / 50%);
     border: 16px solid #FDC6CE;

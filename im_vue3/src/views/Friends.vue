@@ -1,6 +1,6 @@
 <template>
   <div class="friends">
-    friends
+    <div class="g-container">friends</div>
   </div>
 </template>
 
