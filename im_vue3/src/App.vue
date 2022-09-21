@@ -74,6 +74,7 @@ init()
       cursor: pointer;
       position: relative;
       z-index: 1;
+      margin: 0 16px;
       &::before {
         content: '';
         position: absolute;
@@ -82,27 +83,22 @@ init()
         right: 0;
         height: 0;
         bottom: 0;
+        border-radius: 8px;
         background-color: #E26678;
         transition: .3s height ease-in-out;
       }
       &.active {
         color: #FFF8F9;
         &::before {
-          height: 6px;
-          border-radius: 6px;
+          height: 8px;
         }
       }
       &:not(:last-child) {
-        margin-right: 16px;
-        padding-right: 16px;
-        &::before {
-          right: 16px;
-        }
         &::after {
           content: '';
           position: absolute;
           top: 50%;
-          right: -1.5px;
+          right: -17.5px;
           width: 3px;
           height: 3px;
           border-radius: 50%;
@@ -127,7 +123,7 @@ init()
     height: 100%;
     flex-shrink: 0;
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: scroll;
   }
 }
 </style>
