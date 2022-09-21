@@ -51,6 +51,11 @@ let timer: number | null = null
 const showCard = ref(false)
 
 const live2dInit = () => {
+  // 修改资源路径
+  window.defineLive2D({
+    resourcesPath: './live2d/'
+  })
+
   if (window.LAppDelegate.getInstance().initialize() == false) return
   window.LAppDelegate.getInstance().run()
 
