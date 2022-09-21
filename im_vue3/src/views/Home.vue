@@ -1,41 +1,39 @@
 <template>
-  <div class="home" @click="() => showCard = false">
-    <div class="g-container">
-      <div :class="['user-info', { active: showCard }]">
-        <div class="live2d-container">
-          <!-- live2d 头像 -->
-          <div id="live2d_canvas" @click.stop="handleLive2DClick" />
-          <!-- 移动端信息卡 -->
-          <div class="power-card" @click.stop>
-            <ProgressItem
-              v-for="item in progressList"
-              :key="item.label"
-              :detail="item"
-              class="item"
-            />
-          </div>
-        </div>
-        <div class="detail">
-          <div class="name">我是笨蛋小扁担</div>
-          <div class="tips">前端开发工程师 / 兴趣使然的设计 / 23 岁</div>
-          <div class="icon-list">
-            <MediaIcon
-              v-for="item in socialMediaList"
-              :key="item.name"
-              :detail="item"
-              class="item"
-            />
-          </div>
+  <div class="home g-container" @click="() => showCard = false">
+    <div :class="['user-info', { active: showCard }]">
+      <div class="live2d-container">
+        <!-- live2d 头像 -->
+        <div id="live2d_canvas" @click.stop="handleLive2DClick" />
+        <!-- 移动端信息卡 -->
+        <div class="power-card" @click.stop>
+          <ProgressItem
+            v-for="item in progressList"
+            :key="item.label"
+            :detail="item"
+            class="item"
+          />
         </div>
       </div>
-      <div class="power-card">
-        <ProgressItem
-          v-for="item in progressList"
-          :key="item.label"
-          :detail="item"
-          class="item"
-        />
+      <div class="detail">
+        <div class="name">我是笨蛋小扁担</div>
+        <div class="tips">前端开发工程师 / 兴趣使然的设计 / 23 岁</div>
+        <div class="icon-list">
+          <MediaIcon
+            v-for="item in socialMediaList"
+            :key="item.name"
+            :detail="item"
+            class="item"
+          />
+        </div>
       </div>
+    </div>
+    <div class="power-card pc-card">
+      <ProgressItem
+        v-for="item in progressList"
+        :key="item.label"
+        :detail="item"
+        class="item"
+      />
     </div>
   </div>
 </template>
@@ -259,8 +257,8 @@ onMounted(async () => {
         }
       }
     }
-    .g-container > .power-card {
-      display: none;
+    .pc-card {
+      display: none !important;
     }
   }
 }

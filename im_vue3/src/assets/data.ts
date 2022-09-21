@@ -2,15 +2,18 @@
 export const menuList = [
   {
     id: 0,
-    name: 'Home'
+    name: 'Home',
+    url: '/#home'
   },
   {
     id: 1,
-    name: 'Friends'
+    name: 'Friends',
+    url: '/#friends'
   },
   {
     id: 2,
-    name: 'Projects'
+    name: 'Projects',
+    url: '/#projects'
   }
 ]
 
