@@ -51,7 +51,7 @@ const handleClick = () => {
     height: auto;
     transition: opacity .4s ease;
   }
-  &.active {
+  &.active, &:active {
     box-shadow: 0px 1px 3px 0px rgba(226,102,120,0),
     inset 0px 1px 0px 0px rgba(253,198,206,0),
     inset 0px 1px 3px 0px rgba(226,102,120,0.5);

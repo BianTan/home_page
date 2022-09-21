@@ -1,9 +1,20 @@
 <template>
-  <div class="home">
+  <div class="home" @click="() => showCard = false">
     <div class="g-container">
-      <div class="user-info">
-        <!-- live2d 头像 -->
-        <div id="live2d_canvas" />
+      <div :class="['user-info', { active: showCard }]">
+        <div class="live2d-container">
+          <!-- live2d 头像 -->
+          <div id="live2d_canvas" @click.stop="handleLive2DClick" />
+          <!-- 移动端信息卡 -->
+          <div class="power-card" @click.stop>
+            <ProgressItem
+              v-for="item in progressList"
+              :key="item.label"
+              :detail="item"
+              class="item"
+            />
+          </div>
+        </div>
         <div class="detail">
           <div class="name">我是笨蛋小扁担</div>
           <div class="tips">前端开发工程师 / 兴趣使然的设计 / 23 岁</div>
@@ -30,13 +41,14 @@
 </template>
 
 <script lang='ts' setup>
-import { nextTick, onMounted } from 'vue'
+import { ref, nextTick, onMounted } from 'vue'
 import {
   socialMediaList,
   progressList
 } from '@/assets/data'
 
 let timer: number | null = null
+const showCard = ref(false)
 
 const live2dInit = () => {
   if (window.LAppDelegate.getInstance().initialize() == false) return
@@ -45,7 +57,7 @@ const live2dInit = () => {
   // 鼠标移出窗口
   document.body.addEventListener('mouseleave', () => {
     timer && clearTimeout(timer)
-    timer = setTimeout(() => {
+    timer = window.setTimeout(() => {
       const down = new MouseEvent('mousedown')
       const up = new MouseEvent('mouseup')
       window.dispatchEvent(down)
@@ -58,6 +70,11 @@ const live2dInit = () => {
   })
 }
 
+// 头像点击
+const handleLive2DClick = () => {
+  showCard.value = !showCard.value
+}
+
 // 等待挂载完成进行 live2d 的初始化
 onMounted(async () => {
   await nextTick()
@@ -68,41 +85,61 @@ onMounted(async () => {
 
 <style lang='scss' scoped>
 .home {
-  .g-container {
-    padding-top: 115px;
-  }
   .user-info {
     display: flex;
     align-items: flex-end;
-    #live2d_canvas {
-      width: 200px;
-      height: 200px;
-      background: #FFF1F3;
-      box-shadow: 0px 1px 3px 0px rgb(226 102 120 / 20%), inset 0px 1px 3px 0px rgb(253 198 206 / 50%);
-      border: 16px solid #FDC6CE;
-      border-radius: 50%;
+    position: relative;
+    .live2d-container {
+      padding-top: 115px;
       position: relative;
-      :deep(canvas) {
-        width: 130%;
-        height: 130%;
+      #live2d_canvas {
+        width: 200px;
+        height: 200px;
+        z-index: 2;
+        background: #FFF1F3;
+        box-shadow: 0px 1px 3px 0px rgb(226 102 120 / 20%), inset 0px 1px 3px 0px rgb(253 198 206 / 50%);
+        border: 16px solid #FDC6CE;
+        border-radius: 50%;
+        position: relative;
+        flex-shrink: 0;
+        :deep(canvas) {
+          width: 130%;
+          height: 130%;
+          position: absolute;
+          object-fit: contain;
+          left: 50%;
+          transform: translate(-50%, calc(-30%));
+        }
+      }
+      .power-card {
         position: absolute;
-        object-fit: contain;
-        left: 50%;
-        transform: translate(-50%, calc(-30%));
+        z-index: 1;
+        top: 0;
+        left: 0;
+        right: 0;
+        display: none;
+        opacity: 0;
+        visibility: hidden;
+        transition: .3s ease-in-out;
       }
     }
     .detail {
+      display: flex;
+      flex-direction: column;
       padding: 12px 0 24px 64px;
       .name {
+        order: 1;
         color: #FFF8F9;
         font-size: 48px;
         font-weight: 500;
       }
       .tips {
+        order: 2;
         color: #FFF1F3;
         font-size: 18px;
       }
       .icon-list {
+        order: 3;
         display: flex;
         align-items: center;
         margin-top: 22px;
@@ -120,6 +157,103 @@ onMounted(async () => {
     box-shadow: 0px 0px 3px 0px #E26678;
     .item:not(:last-child) {
       margin-bottom: 32px;
+    }
+  }
+  @media (max-width: 960px) {
+    .user-info {
+      .live2d-container {
+        #live2d_canvas {
+          width: 120px;
+          height: 120px;
+        }
+      }
+      .detail {
+        padding: 12px 0 12px 32px;
+        .name {
+          font-size: 24px;
+        }
+        .tips {
+          font-size: 16px;
+          margin-top: 4px;
+        }
+        .icon-list {
+          margin-top: 12px;
+        }
+      }
+    }
+  }
+  @media (max-width: 576px) {
+    .user-info {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      .live2d-container {
+        width: 100%;
+        transition: .3s all ease-in-out;
+        #live2d_canvas {
+          width: 132px;
+          height: 132px;
+          margin: 0 auto;
+          transition: .3s all ease-in-out;
+        }
+        :deep(.power-card) {
+          display: unset;
+          .item {
+            .progress {
+              height: 12px;
+            }
+            .label {
+              font-size: 14px;
+              text-align: left;
+              margin-top: 6px;
+            }
+            &:not(:last-child) {
+              margin-bottom: 12px;
+            }
+          }
+        }
+      }
+      .detail {
+        margin-top: 24px;
+        width: 100%;
+        padding: 0;
+        transition: .3s all ease-in-out;
+        .name {
+          order: 2;
+          margin-top: 4px;
+        }
+        .tips {
+          order: 1;
+        }
+        .icon-list {
+          margin-top: 46px;
+          justify-content: space-evenly;
+          .item {
+            margin-right: 0 !important;
+          }
+        }
+      }
+      &.active {
+        .live2d-container {
+          padding-top: 0;
+          #live2d_canvas {
+            width: 46px;
+            height: 46px;
+            border-width: 6px;
+            transform: translateY(24px);
+          }
+        }
+        .power-card {
+          opacity: 1;
+          visibility: visible;
+        }
+        .detail {
+          margin-top: 320px;
+        }
+      }
+    }
+    .g-container > .power-card {
+      display: none;
     }
   }
 }

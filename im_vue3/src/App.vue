@@ -102,6 +102,8 @@ const handleItemClick = (id: number) => {
   .page {
     width: 100%;
     flex-shrink: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 }
 </style>
