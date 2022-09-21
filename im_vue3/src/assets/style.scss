@@ -1,12 +1,16 @@
 body, html {
   height: 100%;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", 微软雅黑, Arial, sans-serif;
   > #app {
     height: 100%;
     overflow: hidden;
     background-color: #FF869C;
     user-select: none;
+    display: flex;
+    flex-direction: column;
   }
   .g-container {
+    width: 100%;
     max-width: 1280px;
     margin: 0 auto;
     padding: 0 24px;
@@ -16,4 +20,16 @@ body, html {
 
 ul, li {
   list-style: none;
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0);
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(46, 46, 46, 0);
+  border-radius: 6px;
+}
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }

@@ -89,8 +89,9 @@ onMounted(async () => {
     display: flex;
     align-items: flex-end;
     position: relative;
+    padding-top: 115px;
+    transition: .3s all ease-in-out;
     .live2d-container {
-      padding-top: 115px;
       position: relative;
       #live2d_canvas {
         width: 200px;
@@ -151,6 +152,7 @@ onMounted(async () => {
   }
   .power-card {
     margin-top: 62px;
+    margin-bottom: 24px;
     padding: 32px 26px;
     border-radius: 12px;
     background-color: #FFF8F9;
@@ -234,8 +236,8 @@ onMounted(async () => {
         }
       }
       &.active {
+        padding-top: 0;
         .live2d-container {
-          padding-top: 0;
           #live2d_canvas {
             width: 46px;
             height: 46px;

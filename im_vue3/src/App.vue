@@ -95,9 +95,9 @@ const handleItemClick = (id: number) => {
   }
 }
 .page-container {
-  height: 100%;
+  flex: 1;
   display: flex;
-  margin-top: 24px;
+  overflow: hidden;
   transition: .3s transform ease;
   .page {
     width: 100%;
