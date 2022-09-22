@@ -1,0 +1,43 @@
+.home,
+.about {
+  .info.active {
+    transition-delay: 0.6s;
+    transform: translateY(0);
+    opacity: 1;
+  }
+  .name span {
+    --delay: 10s;
+    padding: 2px 0;
+    display: inline-block;
+    overflow: hidden;
+    width: 0ch;
+    animation: 0.1s text-in ease-in-out forwards;
+    animation-delay: var(--delay);
+  }
+}
+@keyframes text-in {
+  from {
+    width: 0ch;
+  }
+  to {
+    width: 1.8ch;
+  }
+}
+
+.about {
+  .progerss div {
+    width: 0;
+  }
+  .progerss div.active {
+    animation: 0.6s progress-in ease-in-out forwards;
+    animation-delay: var(--delay);
+  }
+}
+@keyframes progress-in {
+  from {
+    width: 0;
+  }
+  to {
+    width: var(--width);
+  }
+}

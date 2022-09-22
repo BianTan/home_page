@@ -1,0 +1,38 @@
+.about.container,
+.friend.container,
+.project.container {
+  margin-top: 48px;
+  h1 {
+    color: #fda4af;
+    font-size: 34px;
+    letter-spacing: 3px;
+    position: relative;
+    i {
+      color: #fb7185;
+    }
+    p {
+      color: #fda4af;
+      font-size: 20px;
+      display: inline-block;
+      margin-left: 6px;
+    }
+    &::after {
+      content: "";
+      width: 10%;
+      height: 8px;
+      border-radius: 3px;
+      position: absolute;
+      left: 0;
+      bottom: -26px;
+      background-color: #fc9caa;
+    }
+  }
+}
+
+.home.container {
+  margin-top: 20%;
+}
+
+[v-cloak] {
+  display: none;
+}
