@@ -112,6 +112,7 @@ init()
 .main {
   flex: 1;
   overflow: auto;
+  overflow-x: hidden;
 }
 .page-container {
   width: 100%;

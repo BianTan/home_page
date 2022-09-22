@@ -56,7 +56,7 @@ const live2dInit = () => {
     resourcesPath: './live2d/'
   })
 
-  if (window.LAppDelegate.getInstance().initialize() == false) return
+  if (window.LAppDelegate.getInstance().initialize('#live2d_canvas') == false) return
   window.LAppDelegate.getInstance().run()
 
   // 鼠标移出窗口
