@@ -16,7 +16,8 @@
     <div
       class="page-container"
       :style="{
-        transform: `translate(-${winWidth * activeIndex}px, 0)`
+        transform: `translate(-${winWidth * activeIndex}px, 0)`,
+        transitionDuration: animation ? '.3s' : '0s'
       }"
     >
       <Home class="page" />
@@ -27,13 +28,14 @@
 </template>
 
 <script lang='ts' setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useWindowSize } from '@vueuse/core'
 
 import { menuList } from '@/assets/data'
 
 const { width: winWidth } = useWindowSize()
 const activeIndex = ref(0)
+const animation = ref(false)
 
 const handleItemClick = (item: {
   id: number;
@@ -56,6 +58,13 @@ const init = () => {
   })
 }
 init()
+
+let animationTimer: number | null = null
+watch(() => activeIndex.value, () => {
+  animationTimer && clearTimeout(animationTimer)
+  animation.value = true
+  animationTimer = setTimeout(() => animation.value = false, 320)
+})
 
 </script>
 
@@ -118,7 +127,7 @@ init()
   width: 100%;
   height: 100%;
   display: flex;
-  transition: .3s transform ease;
+  transition: 0s all ease-in-out;
   .page {
     width: 100%;
     height: 100%;
