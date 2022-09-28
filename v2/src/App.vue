@@ -16,7 +16,7 @@
     <div
       class="page-container"
       :style="{
-        transform: `translate(-${winWidth * activeIndex}px, 0)`,
+        transform: `translate(-${(winWidth - 8) * activeIndex}px, 0)`,
         transitionDuration: animation ? '.3s' : '0s'
       }"
     >
@@ -63,7 +63,7 @@ let animationTimer: number | null = null
 watch(() => activeIndex.value, () => {
   animationTimer && clearTimeout(animationTimer)
   animation.value = true
-  animationTimer = setTimeout(() => animation.value = false, 320)
+  animationTimer = window.setTimeout(() => animation.value = false, 320)
 })
 
 </script>
