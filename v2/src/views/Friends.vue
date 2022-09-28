@@ -29,9 +29,16 @@ import { friendList } from '@/assets/data'
     display: flex;
     flex-wrap: wrap;
     .item {
-      width: 33.33%;
-      padding: 6px;
+      width: 25%;
+      padding: 12px 10px;
       box-sizing: border-box;
+    }
+  }
+  @media (max-width: 1280px) {
+    .friends-list {
+      .item {
+        width: 33.33%
+      }
     }
   }
   @media (max-width: 960px) {
@@ -45,6 +52,7 @@ import { friendList } from '@/assets/data'
     .friends-list {
       .item {
         width: 100%;
+        padding: 6px;
       }
     }
   }

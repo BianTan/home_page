@@ -106,13 +106,13 @@ export const friendList: FriendDetail[] = [
     url: "https://sell.moe/",
     avatar: "/link_avatar/sell.ico"
   },
-  {
-    id: 3,
-    name: "DANNY 's Blog",
-    desc: "80后奶爸的博客",
-    url: "https://wrdan.com/",
-    avatar: ""
-  },
+  // {
+  //   id: 3,
+  //   name: "DANNY 's Blog",
+  //   desc: "80后奶爸的博客",
+  //   url: "https://wrdan.com/",
+  //   avatar: "/link_avatar/danny.jpg"
+  // },
   {
     id: 4,
     name: "天气雨",

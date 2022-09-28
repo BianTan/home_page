@@ -1,5 +1,6 @@
 <template>
   <a :href="detail.url" class="friends-card" target="_blank">
+    <div class="card-bg" />
     <img :src="`https://im.biandan.me${detail.avatar}`" :alt="detail.name" class="avatar">
     <div class="info">
       <div class="name">{{ detail.name }}</div>
@@ -26,8 +27,19 @@ withDefaults(defineProps<{
   border-radius: 12px;
   text-decoration: none;
   box-sizing: border-box;
-  background-color: #FFF8F9;
   box-shadow: 0px 0px 3px 0px #E26678;
+  position: relative;
+  transition: all .3s ease;
+  .card-bg {
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    background-color: #FFF8F9;
+  }
   .avatar {
     width: 48px;
     height: 48px;
@@ -50,6 +62,27 @@ withDefaults(defineProps<{
       text-overflow: ellipsis;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
+    }
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    z-index: -2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    filter: blur(0);
+    border-radius: 24px;
+    transition: all ease .3s;
+    background-color: #FEDCE1;
+  }
+  &:hover {
+    transform: translateY(-8px) scale(1.03);
+    border-color: #FEDCE1;
+    &::after {
+      transform: translateY(8px) scaleX(0.8);
+      filter: blur(6px);
     }
   }
 }
