@@ -1,5 +1,5 @@
 <template>
-  <a :href="detail.url" class="friends-card" target="_blank">
+  <a :href="detail.url" :class="['friends-card', { hover: curDevice === 'pc' }]" target="_blank">
     <div class="card-bg" />
     <img :src="`https://im.biandan.me${detail.avatar}`" :alt="detail.name" class="avatar">
     <div class="info">
@@ -11,6 +11,9 @@
 
 <script lang='ts' setup>
 import type { FriendDetail } from '@/assets/data'
+import { useCurDevice } from '@/hooks/useCurDevice'
+
+const { curDevice } = useCurDevice()
 
 withDefaults(defineProps<{
   detail: FriendDetail;
@@ -64,7 +67,7 @@ withDefaults(defineProps<{
       -webkit-box-orient: vertical;
     }
   }
-  &::after {
+  &.hover::after {
     content: '';
     position: absolute;
     z-index: -2;
@@ -77,7 +80,7 @@ withDefaults(defineProps<{
     transition: all ease .3s;
     background-color: #FEDCE1;
   }
-  &:hover {
+  &.hover:hover {
     transform: translateY(-8px) scale(1.03);
     border-color: #FEDCE1;
     &::after {

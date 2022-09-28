@@ -16,7 +16,8 @@
     <div
       class="page-container"
       :style="{
-        transform: `translate(-${(winWidth - 8) * activeIndex}px, 0)`,
+        paddingLeft: `${leftWidth}px`,
+        transform: `translate(-${(winWidth - leftWidth) * activeIndex}px, 0)`,
         transitionDuration: animation ? '.3s' : '0s'
       }"
     >
@@ -28,14 +29,17 @@
 </template>
 
 <script lang='ts' setup>
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useWindowSize } from '@vueuse/core'
+import { useCurDevice } from '@/hooks/useCurDevice'
 
 import { menuList } from '@/assets/data'
 
 const { width: winWidth } = useWindowSize()
+const { isMobile } = useCurDevice()
 const activeIndex = ref(0)
 const animation = ref(false)
+const leftWidth = computed(() => isMobile.value ? 0 : 8)
 
 const handleItemClick = (item: {
   id: number;
@@ -128,6 +132,7 @@ watch(() => activeIndex.value, () => {
   height: 100%;
   display: flex;
   transition: 0s all ease-in-out;
+  box-sizing: border-box;
   .page {
     width: 100%;
     height: 100%;
